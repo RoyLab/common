@@ -1,6 +1,6 @@
 #pragma once
 
-namespace XRwy
+namespace XR
 {
 	template <class T>
 	class ArrayWrapper
