@@ -110,11 +110,13 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="BitmapWriter.hpp" />
     <ClInclude Include="XColorGenerator.hpp" />
     <ClInclude Include="XConfigReader.hpp" />
     <ClInclude Include="linmath.h" />
     <ClInclude Include="macros.h" />
     <ClInclude Include="xd3d11tools.hpp" />
+    <ClInclude Include="xheader.h" />
     <ClInclude Include="xlogger.h" />
     <ClInclude Include="xmath.h" />
     <ClInclude Include="XException.hpp" />

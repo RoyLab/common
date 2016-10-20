@@ -40,5 +40,11 @@
     <ClInclude Include="xlogger.h">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="xheader.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="BitmapWriter.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

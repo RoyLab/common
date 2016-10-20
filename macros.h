@@ -9,15 +9,15 @@
 #endif
 
 #if defined(DEBUG) || defined(_DEBUG)
-#ifndef V
-#define V(x)           { hr = (x); if( FAILED(hr) ) { assert( 0 || __FILE__); } }
+#ifndef V_NORETURN
+#define V_NORETURN(x)           { hr = (x); if( FAILED(hr) ) { assert( 0 || __FILE__); } }
 #endif
 #ifndef V_RETURN
 #define V_RETURN(x)    { hr = (x); if( FAILED(hr) ) { assert( 0 || __FILE__); return hr; } }
 #endif
 #else
-#ifndef V
-#define V(x)           { hr = (x); }
+#ifndef V_NORETURN
+#define V_NORETURN(x)           { hr = (x); }
 #endif
 #ifndef V_RETURN
 #define V_RETURN(x)    { hr = (x); if( FAILED(hr) ) { return hr; } }
