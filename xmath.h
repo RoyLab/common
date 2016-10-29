@@ -39,14 +39,14 @@ static inline void mat4x4_mul_vec3(vec3 r, mat4x4 M, vec3 v)
     vec4_to_vec3(r, tmp2);
 }
 
-static inline float vec3_distance(const float* a, const float* b)
+static inline LinType vec3_distance(const LinType* a, const LinType* b)
 {
     vec3 diff;
     vec3_sub(diff, a, b);
     return vec3_len(diff);
 }
 
-static inline bool vec3_collinear(const float* a, const float *b)
+static inline bool vec3_collinear(const LinType* a, const LinType *b)
 {
     if (fabs(a[1] * b[2] - a[2] * b[1]) > XRM_SMALL ||
         fabs(a[2] * b[0] - a[0] * b[2]) > XRM_SMALL ||
@@ -54,7 +54,7 @@ static inline bool vec3_collinear(const float* a, const float *b)
     return true;
 }
 
-static inline float vec3_volume(const float* a, const float *b, const float *c, const float *d)
+static inline LinType vec3_volume(const LinType* a, const LinType *b, const LinType *c, const LinType *d)
 {
     vec3 e1, e2, e3;
     vec3_sub(e1, a, b);
@@ -66,7 +66,7 @@ static inline float vec3_volume(const float* a, const float *b, const float *c, 
     return vec3_mul_inner(n, e3);
 }
 
-static inline bool vec3_coplanar(const float* a, const float *b, const float *c, const float *d)
+static inline bool vec3_coplanar(const LinType* a, const LinType *b, const LinType *c, const LinType *d)
 {
     vec3 e1, e2, e3;
     vec3_sub(e1, a, b);
@@ -86,13 +86,13 @@ static inline bool vec3_coplanarv(const vec3 (&v)[4])
     return vec3_coplanar(v[0], v[1], v[2], v[3]);
 }
 
-static inline float vec3_volumev(const vec3(&v)[4])
+static inline LinType vec3_volumev(const vec3(&v)[4])
 {
     return vec3_volume(v[0], v[1], v[2], v[3]);
 }
 
 template <int N>
-static inline bool vec3_iszero(const float* a)
+static inline bool vec3_iszero(const LinType* a)
 {
 	for (int i = 0; i < N; i++)
     if (fabs(a[0]) < XRM_SMALL &&
@@ -113,8 +113,8 @@ static inline void vec3_inexact_surface(vec4& r, const vec3& a, const vec3& b, c
 
 static inline void vec3_point_plane_projection(vec3& p, const vec3& s, const vec4& face)
 {
-	float t = s[0] * face[0] + s[1] * face[1] + s[2] * face[2] + face[3];
-	float square = 0;
+	LinType t = s[0] * face[0] + s[1] * face[1] + s[2] * face[2] + face[3];
+	LinType square = 0;
 	for (size_t i = 0; i < 3; i++)
 		square += s[i] * s[i];
 

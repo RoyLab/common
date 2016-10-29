@@ -46,5 +46,11 @@
     <ClInclude Include="BitmapWriter.hpp">
       <Filter>src</Filter>
     </ClInclude>
+    <ClInclude Include="cy\cyPoint.h">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="xgeometry.h">
+      <Filter>src</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

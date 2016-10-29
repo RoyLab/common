@@ -34,6 +34,7 @@
 #define SAFE_RELEASE(p)      { if (p) { (p)->Release(); (p) = nullptr; } }
 #endif
 
+
 #ifndef COMMON_PROPERTY
 #define COMMON_PROPERTY(__type__,__name__) \
 protected: \
@@ -47,23 +48,62 @@ return m_##__name__; \
 } \
 void set_##__name__##(__type__ & _##__name__##_){ \
 m_##__name__ = _##__name__##_; \
-}\
-void set_##__name__##(const __type__ & _##__name__##_){\
-m_##__name__ = _##__name__##_; \
+}
+#endif
+
+#ifndef COMMON_PROPERTY_POINTER
+#define COMMON_PROPERTY_POINTER(__type__,__name__) \
+protected: \
+__type__ * mp_##__name__ = nullptr; \
+public: \
+const __type__ * get_##__name__() const{ \
+return mp_##__name__; \
+} \
+__type__ * get_##__name__(){ \
+return mp_##__name__; \
+} \
+void set_##__name__##(__type__ * _##__name__##_){ \
+mp_##__name__ = _##__name__##_; \
 }
 #endif
 
 #ifndef STATIC_PROPERTY
 #define STATIC_PROPERTY(__type__,__name__) \
 protected: \
-static __type__ m_##__name__; \
+static __type__ __name__; \
 public: \
 static __type__ & get_##__name__(){ \
-return m_##__name__; \
+return __name__; \
 } \
-static void set_##__name__##(__type__ & _##__name__##_){ \
-m_##__name__ = _##__name__##_; \
+static void set_##__name__##(const __type__ & _##__name__##_){ \
+__name__ = _##__name__##_; \
 }
+#endif
+
+
+#ifndef STATIC_PROPERTY_POINTER
+#define STATIC_PROPERTY_POINTER(__type__,__name__) \
+protected: \
+static __type__ * __name__; \
+public: \
+static __type__ * get_##__name__(){ \
+return __name__; \
+} \
+static void set_##__name__##(const __type__ * _##__name__##_){ \
+__name__ = _##__name__##_; \
+}
+#endif
+
+#ifndef ReportErrorString
+#define ReportErrorString\
+    (std::string("Error! ") + itoa(__LINE__, _errline, 20) + "of file \"" + __FILE__ + "\".\n")
+
+#endif
+
+#ifndef ReportError
+#define ReportError(text)\
+    {printf ("Error! %d of file \"%s\": %s\n",__LINE__, __FILE__, text);assert(0);}
+
 #endif
 
 #define ExternPtr // this ptr should not be release when destroy the object
