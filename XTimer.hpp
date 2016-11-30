@@ -21,7 +21,7 @@ namespace XR
 			timeStamp[name] = getNow();
 		}
 
-		int setClock()
+		size_t setClock()
 		{
 			timeStamp2.push_back(getNow());
 			return timeStamp2.size() - 1;

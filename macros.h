@@ -106,6 +106,8 @@ __name__ = _##__name__##_; \
 
 #endif
 
+#define XR_assert(x) if (!(x)) {MessageBox(0, "Error", "error", 0);}
+
 #define ExternPtr // this ptr should not be release when destroy the object
 
 #define ADD_SUFFIX_IF_NECESSARY(ch, sf, str)\
@@ -129,3 +131,4 @@ __name__ = _##__name__##_; \
 #define Write4Bytes(f, b) (WriteNBytes(f, &b, 4))
 
 #define PRINT_TRIPLE(v) (v)[0] << '\t' << (v)[1] << '\t' << (v)[2]
+
