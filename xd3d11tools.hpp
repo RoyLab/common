@@ -65,7 +65,7 @@ namespace XR
 		ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
 		data.pSysMem = vertices;
 
-		V(buffers->pDevice->CreateBuffer(&bDesc, &data, &buffers->pVB));
+		V_NORETURN(buffers->pDevice->CreateBuffer(&bDesc, &data, &buffers->pVB));
 
 		// create index buffer
 		bDesc.ByteWidth = 3 * sizeof(UINT);
@@ -76,7 +76,7 @@ namespace XR
 		ZeroMemory(&data, sizeof(D3D11_SUBRESOURCE_DATA));
 		data.pSysMem = indices;
 
-		V(buffers->pDevice->CreateBuffer(&bDesc, &data, &buffers->pIB));
+        V_NORETURN(buffers->pDevice->CreateBuffer(&bDesc, &data, &buffers->pIB));
 	}
 
 	static void ReleaseDebugBuffers(DebugBuffers* buffers)

@@ -7,52 +7,49 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="cmdline.h">
+      <Filter>src</Filter>
+    </ClInclude>
     <ClInclude Include="linmath.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="macros.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="XTimer.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="xmath.h">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="XException.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="XStruct.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="XSparseMatrix.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="xd3d11tools.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="XConfigReader.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="XColorGenerator.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
-    <ClInclude Include="xlogger.h">
+    <ClInclude Include="xgeometry.h">
       <Filter>src</Filter>
     </ClInclude>
     <ClInclude Include="xheader.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="BitmapWriter.hpp">
+    <ClInclude Include="xlogger.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="cy\cyPoint.h">
+    <ClInclude Include="xmath.h">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="xgeometry.h">
+    <ClInclude Include="bitmapwriter.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="cmdline.h">
+    <ClInclude Include="xcolorgenerator.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="xconfigreader.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="xd3d11tools.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="xexception.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="xsparsematrix.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="xstruct.hpp">
+      <Filter>src</Filter>
+    </ClInclude>
+    <ClInclude Include="xtimer.hpp">
       <Filter>src</Filter>
     </ClInclude>
   </ItemGroup>
