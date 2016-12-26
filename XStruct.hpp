@@ -1,15 +1,26 @@
 #pragma once
 #include <vector>
+#include <cassert>
 #include <algorithm>
 
 namespace XR
 {
-	template <class T>
+	template <class T, bool Owner = false>
 	class ArrayWrapper
 	{
 	public:
 		ArrayWrapper(T* arr, size_t sz) :
 			m_data(arr), m_size(sz) {}
+
+        virtual ~ArrayWrapper()
+        {
+            if (Owner && m_data)
+            {
+                delete[]m_data;
+                m_data = nullptr;
+                m_size = 0;
+            }
+        }
 
 		size_t size() const { return m_size; }
 		T& operator[](int idx) { return m_data[idx]; }
@@ -28,8 +39,129 @@ namespace XR
     {
         typedef std::vector<T> Base;
     public:
+        RecursiveVector() {}
+        virtual ~RecursiveVector() {}
+
         const_reference operator[](size_type _Pos) const { return Base::operator[](_Pos % size()); }
         reference operator[](size_type _Pos) { return Base::operator[](_Pos % size()); }
+    };
+
+    template <class T, size_t BlockSize = 4>
+    class BlockDeque
+    {
+        struct Block
+        {
+            T data[BlockSize];
+            Block* next;
+        };
+
+        typedef size_t size_type;
+
+    public:
+        BlockDeque() : head_(nullptr) {}
+        virtual ~BlockDeque()
+        {
+            Block* cur_block = head_;
+            while (cur_block)
+            {
+                Block* del_block = cur_block;
+                cur_block = cur_block->next;
+                delete del_block;
+            }
+        }
+
+        size_type size() const { return size_; }
+        T& at(size_type idx)
+        {
+#ifdef _DEBUG
+            assert(idx < size_);
+#endif
+            lldiv_t loc = std::lldiv(idx, BlockSize);
+            return indices_[loc.quot]->data[loc.rem];
+        }
+        //TODO
+
+
+    protected:
+        std::vector<Block*> indices_;
+        Block *head_, *tail;
+        size_type capacity_, size_;
+    };
+
+    // invalidate the iterator of the last element
+    // if a set of elements need to be removed, sort should be conducted and remove from the back
+    template<class T>
+    void vec_quick_delete(typename std::vector<T>::iterator itr, std::vector<T>& vec)
+    {
+        std::swap(vec.back(), *itr);
+        vec.pop_back();
+    }
+
+    template<class T>
+    void vec_quick_delete(typename std::vector<T>::size_type i, std::vector<T>& vec)
+    {
+        std::swap(vec.back(), vec[i]);
+        vec.pop_back();
+    }
+
+    template <class OuterItr, class InnerItr, void (*Assign)(OuterItr, InnerItr&, InnerItr&)>
+    class DoubleIterator
+    {
+    public:
+        DoubleIterator(const OuterItr& begin, const OuterItr& end)
+        {
+            invalid = false;
+            outer_cur_ = begin;
+            outer_end_ = end;
+            assignInnerPtr();
+        }
+
+        DoubleIterator& operator++()
+        {
+            ++inner_cur_;
+            if (inner_cur_ == inner_end_)
+            {
+                ++outer_cur_;
+                assignInnerPtr();
+            }
+            return *this;
+        }
+
+        typename InnerItr::value_type* operator->() const
+        {
+            return inner_cur_.operator->();
+        }
+
+        typename InnerItr::value_type* pointer() const
+        {
+            return &*inner_cur_;
+        }
+        
+        operator bool() const
+        {
+            return outer_cur_ != outer_end_;
+        }
+
+    private:
+        void assignInnerPtr()
+        {
+            while (outer_cur_ != outer_end_)
+            {
+                Assign(outer_cur_, inner_cur_, inner_end_);
+                if (inner_cur_ != inner_end_)
+                {
+                    break;
+                }
+                ++outer_cur_;
+            }
+        }
+
+        OuterItr outer_end_;
+        OuterItr outer_cur_;
+
+        InnerItr inner_end_;
+        InnerItr inner_cur_;
+        bool     invalid;
     };
 }
 
