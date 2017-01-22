@@ -13,8 +13,9 @@ namespace XR
 	class BoundingBox
 	{
 	public:
+        typedef double Scalar;
         BoundingBox() {}
-        BoundingBox(double a, double b, double c, double d, double e, double f):
+        BoundingBox(Scalar a, Scalar b, Scalar c, Scalar d, Scalar e, Scalar f):
             rep{ a, b, c, d, e, f } {}
 
 		template <class PointT>
@@ -32,6 +33,11 @@ namespace XR
 		template <class PointT>
 		inline void include(const PointT& pt);
 
+        inline void include_bbox(const BoundingBox& pt);
+
+        template <class PointT>
+        inline bool has_on_unbounded_side(const PointT& pt);
+
 		double xmin() const { return rep[0]; }
 		double ymin() const { return rep[1]; }
 		double zmin() const { return rep[2]; }
@@ -46,12 +52,12 @@ namespace XR
 
         template <class PointT> PointT center() const { return PointT((rep[3]+rep[0])/2, (rep[4]+rep[1])/2, (rep[5]+rep[2])/2); }
         template <class PointT> PointT diagonal() const { return PointT(rep[3] - rep[0], rep[4] - rep[1], rep[5] - rep[2]); }
-		const double* data() const { return rep.data(); }
+		const Scalar* data() const { return rep.data(); }
 
         template <class PointT> bool isInclude_left_open_right_close(const PointT&) const;
 
 	protected:
-		std::array<double, 6> rep;
+		std::array<Scalar, 6> rep;
 	};
 
 
@@ -144,6 +150,42 @@ namespace XR
         else return false;
     }
 
+    void BoundingBox::include_bbox(const BoundingBox& bbox)
+    {
+        typedef BoundingBox::Scalar T;
+        if (xmin() > bbox.xmin())
+            rep[0] = bbox.xmin();
+
+        if (xmax() < bbox.xmax())
+            rep[3] = bbox.xmax();
+
+        if (ymin() > bbox.ymin())
+            rep[1] = bbox.ymin();
+
+        if (ymax() < bbox.ymax())
+            rep[4] = bbox.ymax();
+
+        if (zmin() > bbox.zmin())
+            rep[2] = bbox.zmin();
+
+        if (zmax() < bbox.zmax())
+            rep[5] = bbox.zmax();
+    }
+
+
+    template <class PointT>
+    bool BoundingBox::has_on_unbounded_side(const PointT& pt)
+    {
+        typedef typename PointT::Scalar T;
+
+        if ((get<0, T>(pt) < rep[0]) && (get<0, T>(pt) > rep[3])
+            && (get<1, T>(pt) < rep[1]) && (get<1, T>(pt) > rep[4])
+            && (get<2, T>(pt) < rep[2]) && (get<2, T>(pt) > rep[5]))
+            return true;
+
+        return false;
+    }
+
 	template <class PointT>
 	void normalizeCoords(const PointT& c, const PointT& d, PointT& pt)
 	{
@@ -158,4 +200,5 @@ namespace XR
         pt *= d / 2;
         pt += c;
     }
+
 }

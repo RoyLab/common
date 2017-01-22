@@ -78,5 +78,7 @@ namespace XR
 XR::Timer * XR::Timer::instance;
 #endif
 
-#define XTIMER_HELPER(func) (XR::Timer::getTimer().##func##)
 #define XTIMER_OBJ (XR::Timer::getTimer())
+
+// deprecated
+#define XTIMER_HELPER(func) (XR::Timer::getTimer().##func##)

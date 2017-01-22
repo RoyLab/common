@@ -90,15 +90,15 @@ namespace XR
 
     // invalidate the iterator of the last element
     // if a set of elements need to be removed, sort should be conducted and remove from the back
-    template<class T>
-    void vec_quick_delete(typename std::vector<T>::iterator itr, std::vector<T>& vec)
+    template<class Container>
+    void vec_quick_delete(typename Container::iterator itr, Container& vec)
     {
         std::swap(vec.back(), *itr);
         vec.pop_back();
     }
 
-    template<class T>
-    void vec_quick_delete(typename std::vector<T>::size_type i, std::vector<T>& vec)
+    template<class Container>
+    void vec_quick_delete(typename Container::size_type i, Container& vec)
     {
         std::swap(vec.back(), vec[i]);
         vec.pop_back();
