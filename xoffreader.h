@@ -19,7 +19,7 @@ namespace XR
         return true;
     }
 
-    typedef std::vector<float[3]>  VertexStorage;
+    typedef std::vector<cyPoint3f>  VertexStorage;
 
     class FaceStorage
     {

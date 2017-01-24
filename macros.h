@@ -24,6 +24,10 @@
 #endif
 #endif
 
+#ifndef V_RETURN_INT
+#define V_RETURN_INT(x, i)           { if( x ) { assert( 0 || __FILE__);  return i;} }
+#endif
+
 #ifndef SAFE_DELETE
 #define SAFE_DELETE(p)       { if (p) { delete (p);     (p) = nullptr; } }
 #endif
