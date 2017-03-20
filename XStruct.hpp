@@ -18,7 +18,6 @@ namespace XR
             {
                 delete[]m_data;
                 m_data = nullptr;
-                m_size = 0;
             }
         }
 

@@ -8,6 +8,8 @@
 #include <vector>
 #include <memory>
 
+#include "cy\cyPoint.h"
+
 namespace XR
 {
     inline bool isempty(const char *s)

@@ -51,12 +51,12 @@ namespace XR
 		// create vertex buffer
 		D3D11_BUFFER_DESC bDesc;
 		ZeroMemory(&bDesc, sizeof(D3D11_BUFFER_DESC));
-		bDesc.ByteWidth = 3 * sizeof(XMFLOAT3);
+		bDesc.ByteWidth = 3 * sizeof(Point3);
 		bDesc.BindFlags = D3D11_BIND_VERTEX_BUFFER;
 		bDesc.Usage = D3D11_USAGE_DEFAULT;
 
 		D3D11_SUBRESOURCE_DATA data;
-		XMFLOAT3 vertices[] =
+		Point3 vertices[] =
 		{
 			{ 2.0f, 2.0f, 10.0f },
 			{ -2.0f, -2.0f, 10.0f },
@@ -88,7 +88,7 @@ namespace XR
 
 	void DebugBuffers::drawCall(D3D11_PRIMITIVE_TOPOLOGY topology)
 	{
-		UINT strides[] = { sizeof(XMFLOAT3) };
+		UINT strides[] = { sizeof(Point3) };
 		UINT offsets[] = { 0 };
 		pDCT->IASetVertexBuffers(0, 1, &pVB, strides, offsets);
 		//pDCT->IASetIndexBuffer(pIB, DXGI_FORMAT_R32_UINT, 0);

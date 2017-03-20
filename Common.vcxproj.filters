@@ -43,9 +43,6 @@
     <ClInclude Include="xexception.hpp">
       <Filter>src</Filter>
     </ClInclude>
-    <ClInclude Include="xsparsematrix.hpp">
-      <Filter>src</Filter>
-    </ClInclude>
     <ClInclude Include="xstruct.hpp">
       <Filter>src</Filter>
     </ClInclude>

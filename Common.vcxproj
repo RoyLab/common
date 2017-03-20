@@ -32,7 +32,6 @@
     <ClInclude Include="xlogger.h" />
     <ClInclude Include="xmath.h" />
     <ClInclude Include="xoffreader.h" />
-    <ClInclude Include="xsparsematrix.hpp" />
     <ClInclude Include="xstruct.hpp" />
     <ClInclude Include="xtimer.hpp" />
   </ItemGroup>

@@ -1,7 +1,4 @@
-#include "xstruct.hpp"
-
-void test()
+int main()
 {
-    XR::BlockDeque<int> a;
-    a.at(20);
+    return 0;
 }

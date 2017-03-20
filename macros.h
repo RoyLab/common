@@ -38,6 +38,9 @@
 #define SAFE_RELEASE(p)      { if (p) { (p)->Release(); (p) = nullptr; } }
 #endif
 
+//#ifndef ZeroMemory
+//#define ZeroMemory(p, sz) memset((p), 0, (sz)) 
+//#endif // !ZeroMemory
 
 #ifndef COMMON_PROPERTY
 #define COMMON_PROPERTY(__type__,__name__) \
@@ -50,7 +53,7 @@ return m_##__name__; \
 __type__ & get_##__name__(){ \
 return m_##__name__; \
 } \
-void set_##__name__##(__type__ & _##__name__##_){ \
+void set_##__name__##(const __type__ & _##__name__##_){ \
 m_##__name__ = _##__name__##_; \
 }
 #endif
@@ -66,7 +69,7 @@ return mp_##__name__; \
 __type__ * get_##__name__(){ \
 return mp_##__name__; \
 } \
-void set_##__name__##(__type__ * _##__name__##_){ \
+void set_##__name__##(const __type__ * _##__name__##_){ \
 mp_##__name__ = _##__name__##_; \
 }
 #endif
@@ -129,10 +132,10 @@ __name__ = _##__name__##_; \
 #define UNIMPLEMENTED_METHOD "This is an unimplemented method. "
 #define UNIMPLEMENTED_DECLARATION UNIMPLEMENTED_METHOD << __FUNCTION__
 
-#define ReadNBytes(f, b, n) (f.read(reinterpret_cast<char*>(b), n))
-#define Read4Bytes(f, b) (ReadNBytes(f, &b, 4))
-#define WriteNBytes(f, b, n) (f.write(reinterpret_cast<char*>(b), n))
-#define Write4Bytes(f, b) (WriteNBytes(f, &b, 4))
+#define ReadNBytes(f, b, n) ((f).read(reinterpret_cast<char*>(b), (n)))
+#define Read4Bytes(f, b) (ReadNBytes(f, &(b), 4))
+#define WriteNBytes(f, b, n) ((f).write(reinterpret_cast<char*>(b), (n)))
+#define Write4Bytes(f, b) (WriteNBytes(f, &(b), 4))
 
 #define PRINT_TRIPLE(v) (v)[0] << '\t' << (v)[1] << '\t' << (v)[2]
 

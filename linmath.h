@@ -3,7 +3,11 @@
 #include <string.h>
 #include <math.h>
 
+#ifdef DOUBLE_LIN_TYPE
 typedef double LinType;
+#else
+typedef float LinType;
+#endif
 
 #define LINMATH_H_DEFINE_VEC(n) \
 typedef LinType vec##n[n]; \
